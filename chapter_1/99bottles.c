@@ -7,7 +7,6 @@ int main() {
     printf("%d Bottles of beer on the wall, %d Bottles of beer! You take one "
            "down, pass it around, %d Bottles of beer on the wall\n",
            i, i, i - 1);
-
   }
 
 }
