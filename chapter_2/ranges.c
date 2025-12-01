@@ -1,62 +1,71 @@
 
-#include <limits.h>
 #include <stdio.h>
-long power(long base, long exp) {
-    long result = 1;
-    for (long i = 0; i < exp; i++) {
-        result *= base;
-    }
-    return result;
-}
+#include <limits.h>
+
+int power(int base, int n);
 
 int main(void) {
-    printf("signed char:   %d to %d\n", SCHAR_MIN, SCHAR_MAX);
-    printf("unsigned char: 0 to %u\n", UCHAR_MAX);
 
-    printf("signed short:  %d to %d\n", SHRT_MIN, SHRT_MAX);
-    printf("unsigned short: 0 to %u\n", USHRT_MAX);
+    printf("Char: %d - %d\n", CHAR_MIN, CHAR_MAX);
+    printf("Unsigned Char: %u - %u\n", 0U, UCHAR_MAX);
 
-    printf("signed int:    %d to %d\n", INT_MIN, INT_MAX);
-    printf("unsigned int:  0 to %u\n", UINT_MAX);
+    printf("Short: %d - %d\n", SHRT_MIN, SHRT_MAX);
+    printf("Unsigned Short: %u - %u\n", 0U, USHRT_MAX);
 
-    printf("signed long:   %ld to %ld\n", LONG_MIN, LONG_MAX);
-    printf("unsigned long: 0 to %lu\n", ULONG_MAX);
-    printf("-----------------------------------\n");
-    char cmax = 0;
-    while (1) {
-        char next = cmax + 1;
-        if (next < cmax) break; // overflow point
-        cmax = next;
-    }
-    char cmin = -cmax - 1;
+    printf("Int: %d - %d\n", INT_MIN, INT_MAX);
+    printf("Unsigned Int: %u - %u\n", 0U, UINT_MAX);
 
-    unsigned char ucmax = 0;
-    while (1) {
-        unsigned char next = ucmax + 1;
-        if (next < ucmax) break;
-        ucmax = next;
-    }
+    printf("Long: %ld - %ld\n", LONG_MIN, LONG_MAX);
+    printf("Unsigned Long: %u - %lu\n", 0U, ULONG_MAX);
 
-    int imax = 0;
-    while (1) {
-        int next = imax + 1;
-        if (next < imax) break;
-        imax = next;
-    }
-    int imin = -imax - 1;
+    printf("------------------------------------\n");
 
-    unsigned int uimax = 0;
-    while (1) {
-        unsigned int next = uimax + 1;
-        if (next < uimax) break;
-        uimax = next;
-    }
+    int bits_char  = sizeof(char)  * CHAR_BIT;
+    int bits_short = sizeof(short) * CHAR_BIT;
+    int bits_int   = sizeof(int)   * CHAR_BIT;
+    int bits_long  = sizeof(long)  * CHAR_BIT;
 
-    printf("Calculated:\n");
-    printf("Char: %d to %d\n", cmin, cmax);
-    printf("Unsigned Char: 0 to %u\n", ucmax);
-    printf("Int: %d to %d\n", imin, imax);
-    printf("Unsigned Int: 0 to %u\n", uimax);
+
+    #define SIGNED_MAX(bits)   ( power(2, (bits)-1) - 1 )
+
+    #define SIGNED_MIN(bits)   ( -power(2, (bits)-1) )
+
+    #define UNSIGNED_MAX(bits) ( (unsigned long long)power(2, bits) - 1 )
+
+    signed char sc_min = (signed char) SIGNED_MIN(bits_char);
+    signed char sc_max = (signed char) SIGNED_MAX(bits_char);
+    unsigned char uc_max = (unsigned char) UNSIGNED_MAX(bits_char);
+
+    printf("Char: %d - %d\n", sc_min, sc_max);
+    printf("Unsigned Char: %u - %u\n", 0U, uc_max);
+
+    short ss_min = (short) SIGNED_MIN(bits_short);
+    short ss_max = (short) SIGNED_MAX(bits_short);
+    unsigned short us_max = (unsigned short) UNSIGNED_MAX(bits_short);
+
+    printf("Short: %d - %d\n", ss_min, ss_max);
+    printf("Unsigned Short: %u - %u\n", 0U, us_max);
+
+    int si_min = SIGNED_MIN(bits_int);
+    int si_max = SIGNED_MAX(bits_int);
+    unsigned int ui_max = (unsigned int) UNSIGNED_MAX(bits_int);
+
+    printf("Int: %d - %d\n", si_min, si_max);
+    printf("Unsigned Int: %u - %u\n", 0U, ui_max);
+
+    long sl_min = (long) SIGNED_MIN(bits_long);
+    long sl_max = (long) SIGNED_MAX(bits_long);
+    unsigned long ul_max = (unsigned long) UNSIGNED_MAX(bits_long);
+
+    printf("Long: %ld - %ld\n", sl_min, sl_max);
+    printf("Unsigned Long: %u - %lu\n", 0U, ul_max);
 
     return 0;
+}
+
+int power(int base, int n) {
+    int p = 1;
+    for (int i = 1; i <= n; ++i)
+        p = p * base;
+    return p;
 }
