@@ -22,9 +22,20 @@ void expand(char s1[], char s2[]) {
     s2[j] = '\0'; //null terminate 
 }
 int main() {
-    char s1[] = "-a-zA-Z0-9-";
-    char s2[100];
-    expand(s1, s2);
-    printf("Expanded: %s\n", s2);
+    char t1[] = "a-b-c";
+    char t2[100];
+    expand(t1, t2);
+    printf("Original: %s\n", t1);
+    printf("Expanded: %s\n", t2);
+    char t3[]="a-z0-9";
+    char t4[100];
+    expand(t3,t4);
+    printf("Original: %s\n", t3);
+    printf("Expanded: %s\n", t4);
+    char t5[]="-a-z";
+    char t6[100];
+    expand(t5,t6);
+    printf("Original: %s\n", t5);
+    printf("Expanded: %s\n", t6);
     return 0;
 }
