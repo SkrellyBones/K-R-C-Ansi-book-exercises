@@ -175,7 +175,7 @@ void ungetch(int c)
 {
     if (bufp == 1)
         printf("ungetch: too many characters\n");
-    if (c== EOF)
+    if (c == EOF)
         return;
     else {
         buf = c;
