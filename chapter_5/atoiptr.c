@@ -1,4 +1,4 @@
-/*atio: convert s to integer*/
+/*atoi: convert s to integer*/
 int atoi(char *s){
     int n =0;
     char *p = s;
